@@ -4,7 +4,8 @@ import pickle
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-
+pip install pickle 
+pip install streamlit
 # Load model and data once using st.cache
 @st.cache_data
 def load_saved_artifacts():
