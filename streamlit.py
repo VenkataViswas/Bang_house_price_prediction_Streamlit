@@ -7,7 +7,6 @@ warnings.filterwarnings('ignore')
 pip install pickle 
 pip install streamlit
 # Load model and data once using st.cache
-@st.cache_data
 def load_saved_artifacts():
     with open("./columns.json", 'r') as f:
         data_columns = json.load(f)['data_columns']
