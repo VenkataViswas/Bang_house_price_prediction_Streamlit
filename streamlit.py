@@ -4,13 +4,15 @@ import pickle
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-# Load model and data 
-def load_saved_artifacts():
-    with open("./columns.json", 'r') as f:
-        data_columns = json.load(f)['data_columns']
-        locations = data_columns[3:]
 
-    with open("./banglore_home_prices_model.pickle", 'rb') as f:
+# Load model and data
+@st.cache_resource
+def load_saved_artifacts():
+    with open("columns.json", 'r') as f:
+        data_columns = json.load(f)['data_columns']
+        locations = data_columns[3:]  # Location names start from index 3
+
+    with open("banglore_home_prices_model.pickle", 'rb') as f:
         model = pickle.load(f)
 
     return data_columns, locations, model
@@ -19,7 +21,7 @@ def load_saved_artifacts():
 def get_estimated_price(location, sqft, bhk, bath, data_columns, model):
     try:
         loc_index = data_columns.index(location.lower())
-    except:
+    except ValueError:
         loc_index = -1
 
     x = np.zeros(len(data_columns))
@@ -28,7 +30,9 @@ def get_estimated_price(location, sqft, bhk, bath, data_columns, model):
     x[2] = bath
     if loc_index >= 0:
         x[loc_index] = 1
-    return round(model.predict([x])[0], 2)
+
+    prediction = model.predict([x])[0]
+    return round(prediction, 2)
 
 # Load model and data
 data_columns, locations, model = load_saved_artifacts()
