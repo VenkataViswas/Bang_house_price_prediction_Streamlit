@@ -1,4 +1,14 @@
 import streamlit as st
+
+# Streamlit config must be first
+st.set_page_config(
+    page_title="🏡 Bangalore Home Price Prediction",
+    page_icon="🏠",
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
+
+# Now import other libraries
 import json
 import pickle
 import numpy as np
@@ -36,14 +46,6 @@ def get_estimated_price(location, sqft, bhk, bath, data_columns, model):
 
 # Load model and data
 data_columns, locations, model = load_saved_artifacts()
-
-# Streamlit config
-st.set_page_config(
-    page_title="🏡 Bangalore Home Price Prediction",
-    page_icon="🏠",
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
 
 # Custom CSS
 st.markdown("""
@@ -91,7 +93,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Header
-st.image("https://www.houseofhiranandani.com/vlogs/storage/2019/01/35.png", use_container_width=True)
+st.image("https://via.placeholder.com/800x200?text=Bangalore+Real+Estate", use_container_width=True)
 st.markdown("<h1 style='text-align: center; color: #2E8B57; margin-bottom: 0;'>Bangalore Home Price Prediction</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #666; margin-top: 0;'>Get accurate price estimates for properties in Bangalore</p>", unsafe_allow_html=True)
 
